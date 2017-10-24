@@ -15,10 +15,11 @@ var express     = require("express"),
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes      = require("./routes/index")
-    
-//mongoose.connect("mongodb://localhost/yelp_camp_v1337",{useMongoClient: true});
 
-mongoose.connect("mongodb://marvin:supertollesdbpasswort@ds227325.mlab.com:27325/yelpcampmarvin",{useMongoClient: true});
+
+mongoose.connect(process.env.DATABASEURL,{useMongoClient: true});
+
+// mongoose.connect("mongodb://marvin:supertollesdbpasswort@ds227325.mlab.com:27325/yelpcampmarvin",{useMongoClient: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -50,11 +51,11 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-
-app.listen(process.env.PORT, process.env.IP, function(){
-   console.log("The YelpCamp Server Has Started!");
-});
-
-// app.listen("3000", "127.0.0.1", function(){
-//     console.log("The YelpCamp Server Has Started!");
+//
+// app.listen(process.env.PORT, process.env.IP, function(){
+//    console.log("The YelpCamp Server Has Started!");
 // });
+
+app.listen("3000", "127.0.0.1", function(){
+    console.log("The YelpCamp Server Has Started!");
+});
